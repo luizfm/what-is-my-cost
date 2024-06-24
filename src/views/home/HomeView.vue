@@ -4,6 +4,7 @@ import InputComponent from '@/components/input/InputComponent.vue'
 import TransitionComponent from '@/components/transition/TransitionComponent.vue'
 import { LOCAL_STORAGE_KEYS } from '@/constants/local-storage-keys'
 import router from '@/router'
+import domToImage from 'dom-to-image'
 
 interface ProductItemProps {
   productCost: string
@@ -20,15 +21,27 @@ function onSubmit(values: FormProductsList) {
   localStorage.setItem(LOCAL_STORAGE_KEYS.PRODUCTS_LIST, JSON.stringify(values.productsList))
   router.push('/cost-form')
 }
+
+function convert() {
+  domToImage.toPng(document.getElementById('test')).then((dataUrl: any) => {
+    const a = document.createElement('a')
+    a.href = dataUrl
+    a.download = 'capture.png'
+    a.click()
+    URL.revokeObjectURL(dataUrl)
+  })
+}
 </script>
 
 <template>
+  <button @click="convert">teste</button>
+
   <TransitionComponent name="slide-fade">
-    <main class="page-container">
+    <main class="page-container" id="test">
       <h1>Informa pra gente os produtos utilizados?</h1>
 
       <img
-        src="@/assets/icons/costs-items-icon.svg"
+        src="https://whatismycost.luizfm.com/assets/costs-items-icon-Cc6u--hV.svg"
         alt="Várias pessoas mexendo em uma página da web virtual"
       />
 
