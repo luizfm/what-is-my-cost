@@ -23,7 +23,7 @@ function onSubmit(values: FormProductsList) {
 }
 
 function convert() {
-  domToImage.toPng(document.getElementById('test')).then((dataUrl: any) => {
+  domToImage.toPng(document.getElementById('test') as HTMLElement).then((dataUrl: any) => {
     const a = document.createElement('a')
     a.href = dataUrl
     a.download = 'capture.png'
